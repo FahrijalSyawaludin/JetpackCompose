@@ -1,6 +1,8 @@
 package com.fahrijalsyawaludin.aplikasijetpackcompose.ui.theme.materials
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,7 +35,12 @@ fun StockItem(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .background(MaterialTheme.colorScheme.primaryContainer)
+            .clip(Shapes.medium)
+            .clickable { }
     ) {
         Image(
             painter = painterResource(image),
@@ -41,20 +48,21 @@ fun StockItem(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .size(90.dp)
-                .clip(Shapes.small)
+                .clip(Shapes.medium)
         )
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(start = 8.dp, end = 16.dp)
                 .weight(1.0f)
         ) {
             Text(
                 text = title,
-                maxLines = 3,
+                maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.titleMedium.copy(
-                    fontWeight = FontWeight.ExtraBold
+                    fontWeight = FontWeight.ExtraBold,
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
             )
             Text(
@@ -81,8 +89,8 @@ fun StockItem(
 fun StockItemPreview() {
     AplikasiJetpackComposeTheme {
         StockItem(
-            4, R.drawable.reward_4, "Jaket Hoodie Dicoding", 4000, 0,
-            onProductCountChanged = { rewardId, count -> },
+            4, R.drawable.t11, "Sensor Pelindung Kaki Merk Adidas", 4000, 0,
+            onProductCountChanged = { productId, count -> },
         )
     }
 }

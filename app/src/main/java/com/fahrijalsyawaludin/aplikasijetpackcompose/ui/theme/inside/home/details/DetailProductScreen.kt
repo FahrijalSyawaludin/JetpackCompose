@@ -6,13 +6,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -67,6 +68,7 @@ fun DetailProductScreen(
                 DetailContent(
                     data.product.image,
                     data.product.title,
+                    data.product.description,
                     data.product.requiredPoint,
                     data.count,
                     onBackClick = navigateBack,
@@ -86,6 +88,7 @@ fun DetailProductScreen(
 fun DetailContent(
     @DrawableRes image: Int,
     title: String,
+    description: String,
     basePoint: Int,
     count: Int,
     onBackClick: () -> Unit,
@@ -96,20 +99,23 @@ fun DetailContent(
     var totalPoint by rememberSaveable { mutableStateOf(0) }
     var orderCount by rememberSaveable { mutableStateOf(count) }
 
-    Column(modifier = modifier) {
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .weight(1f)
-        ) {
-            Box {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        item {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(400.dp)
+                    .clip(RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp))
+            ) {
                 Image(
                     painter = painterResource(image),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
-                    modifier = modifier
-                        .height(400.dp)
-                        .fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxSize()
                         .clip(RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp))
                 )
                 Icon(
@@ -120,6 +126,9 @@ fun DetailContent(
                         .clickable { onBackClick() }
                 )
             }
+        }
+
+        item {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(16.dp)
@@ -139,38 +148,44 @@ fun DetailContent(
                     color = MaterialTheme.colorScheme.secondary
                 )
                 Text(
-                    text = stringResource(R.string.lorem_ipsum),
-                    style = MaterialTheme.typography.bodyMedium,
+                    text = description,
+                    style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Justify,
                 )
             }
         }
-        Spacer(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(4.dp)
-                .background(Color.LightGray)
-        )
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            ProductCount(
-                1,
-                orderCount,
-                onProductIncreased = { orderCount++ },
-                onProductDecreased = { if (orderCount > 0) orderCount-- },
+
+        item {
+            Spacer(
                 modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(bottom = 16.dp)
+                    .fillMaxWidth()
+                    .height(4.dp)
+                    .background(Color.LightGray)
             )
-            totalPoint = basePoint * orderCount
-            OrderButton(
-                text = stringResource(R.string.add_to_cart, totalPoint),
-                enabled = orderCount > 0,
-                onClick = {
-                    onAddToCart(orderCount)
-                }
-            )
+        }
+
+        item {
+            Column(
+                modifier = Modifier.padding(16.dp)
+            ) {
+                ProductCount(
+                    1,
+                    orderCount,
+                    onProductIncreased = { orderCount++ },
+                    onProductDecreased = { if (orderCount > 0) orderCount-- },
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(bottom = 16.dp)
+                )
+                totalPoint = basePoint * orderCount
+                OrderButton(
+                    text = stringResource(R.string.add_to_cart, totalPoint),
+                    enabled = orderCount > 0,
+                    onClick = {
+                        onAddToCart(orderCount)
+                    }
+                )
+            }
         }
     }
 }
@@ -180,8 +195,9 @@ fun DetailContent(
 fun DetailContentPreview() {
     AplikasiJetpackComposeTheme {
         DetailContent(
-            R.drawable.reward_4,
-            "Jaket Hoodie Dicoding",
+            R.drawable.t11,
+            "Sensor Pelindung Kaki Merk Adidas",
+            "Untuk melindungi kaki dan mencetak skor dengan otomatis dikarenakan ada sensor yang tersambung di kaki dan akan menampilkan skor di layar dengan otomatis",
             7500,
             1,
             onBackClick = {},

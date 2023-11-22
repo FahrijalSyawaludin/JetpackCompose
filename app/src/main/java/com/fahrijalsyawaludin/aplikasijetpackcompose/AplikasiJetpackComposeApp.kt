@@ -29,7 +29,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.fahrijalsyawaludin.aplikasijetpackcompose.ui.theme.AplikasiJetpackComposeTheme
 import com.fahrijalsyawaludin.aplikasijetpackcompose.ui.theme.inside.home.HomeScreen
-import com.fahrijalsyawaludin.aplikasijetpackcompose.ui.theme.inside.home.Profile.ProfileScreen
+import com.fahrijalsyawaludin.aplikasijetpackcompose.ui.theme.inside.home.profile.ProfileScreen
 import com.fahrijalsyawaludin.aplikasijetpackcompose.ui.theme.inside.home.checkout.CheckoutScreen
 import com.fahrijalsyawaludin.aplikasijetpackcompose.ui.theme.inside.home.details.DetailProductScreen
 import com.fahrijalsyawaludin.aplikasijetpackcompose.ui.theme.nav.LayoutScreen

@@ -38,8 +38,8 @@ fun ProductCount(
     ) {
         Surface(
             shape = RoundedCornerShape(size = 5.dp),
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-            color = Color.Transparent,
+            border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.primary),
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f), 
             contentColor = MaterialTheme.colorScheme.primary,
             modifier = Modifier.size(30.dp)
         ) {
@@ -64,8 +64,8 @@ fun ProductCount(
         )
         Surface(
             shape = RoundedCornerShape(size = 5.dp),
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-            color = Color.Transparent,
+            border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.primary),
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f),
             contentColor = MaterialTheme.colorScheme.primary,
             modifier = Modifier.size(30.dp)
         ) {
